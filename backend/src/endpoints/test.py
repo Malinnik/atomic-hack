@@ -42,6 +42,6 @@ class GetFile2(PydanticView):
                 size += len(chunk)
                 f.write(chunk)
 
-        raise web.HTTPFound("/login")
+        raise web.HTTPFound("/")
         return web.Response(text='{} sized of {} successfully stored'
                              ''.format(filename, size))
