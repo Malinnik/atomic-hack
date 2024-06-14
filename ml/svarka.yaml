@@ -1,0 +1,12 @@
+path: ../ # dataset root dir
+train: images/train # train images (relative to 'path') 4 images
+val: images/val # val images (relative to 'path') 4 images
+test: # test images (optional)
+
+# Classes
+names:
+  1: adj
+  2: int
+  3: geo
+  4: pro
+  5: non
