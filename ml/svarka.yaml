@@ -5,8 +5,8 @@ test: # test images (optional)
 
 # Classes
 names:
-  1: adj
-  2: int
-  3: geo
-  4: pro
-  5: non
+  0: adj
+  1: int
+  2: geo
+  3: pro
+  4: non
