@@ -1,0 +1,72 @@
+default:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+variables:
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+
+
+stages:
+  - build_test
+  - start_test_build
+  - test
+  - deploy
+
+build_test:
+  stage: build_test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH 
+    - if: $CI_COMMIT_TAG
+    - changes: ["./alembic/**", "./docker/**", "./src/**", "./tests/**"]
+
+  script:
+    - echo "build"
+    - mv ./docker/dev/Dockerfile ./ 
+    - docker build --pull -t $CONTAINER_TEST_IMAGE .
+  after_script:
+    - mv ./Dockerfile ./docker/dev/Dockerfile
+
+
+start:
+  stage: start_test_build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH 
+    - if: $CI_COMMIT_TAG
+    - changes: ["./alembic/**", "./docker/**", "./src/**", "./tests/**"]
+  script:
+    - echo "start"
+
+test:
+  stage: test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH 
+    - if: $CI_COMMIT_TAG
+    - changes: ["./alembic/**", "./docker/**", "./src/**", "./tests/**"]
+  script:
+    - echo "test"
+  after_script:
+    - docker image rm $CONTAINER_TEST_IMAGE
+  
+
+# only run this stage on tag creation, not push to master
+build:
+  image: docker:20.10.16
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+  services:
+    - docker:20.10.16-dind
+  script:
+    - mv ./docker/prod/Dockerfile ./ 
+    - echo $CONTAINER_RELEASE_IMAGE
+    - echo $CI_REGISTRY_IMAGE
+    - echo $CI_COMMIT_TAG
+    - docker build -t $CONTAINER_RELEASE_IMAGE -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CONTAINER_RELEASE_IMAGE
+    - docker push $CI_REGISTRY_IMAGE:latest
+  after_script:
+    - mv ./Dockerfile ./docker/prod/Dockerfile

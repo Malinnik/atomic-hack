@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Malinnik <ratanov.maxim@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiohttp = {extras = ["speedups"], version = "^3.9.5"}
+pydantic = {extras = ["email"], version = "^2.7.1"}
+aiohttp-pydantic = "^2.0.0"
+SQLAlchemy = "^2.0.29"
+alembic = "^1.13.1"
+python-dotenv = "^1.0.1"
+asyncpg = "^0.29.0"
+sqlalchemy-utils = "^0.41.2"
+passlib = "^1.7.4"
+pyjwt = "^2.8.0"
+
+[tool.poetry.group.dev.dependencies]
+aiohttp-devtools = "^1.1.2"
+pytest = "^8.1.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
