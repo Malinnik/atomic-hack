@@ -5,6 +5,27 @@
 - [README Frontend](https://github.com/Malinnik/atomic-hack/blob/main/frontend/README.md)
 - [README Backend](https://github.com/Malinnik/atomic-hack/blob/main/backend/README.md)
 - [README ML](https://github.com/Malinnik/atomic-hack/blob/main/ml/README.md)
+
+### Быстрый запуск
+Создайте `docker-compose.yaml`
+```yaml
+services:
+  front:
+    image: atomic-front:latest
+    ports:
+      - 3000:3000
+
+  back:
+    image: atomic-back:latest
+    ports:
+      - 8080:8080
+    
+```
+Запустите, используя Docker Compose
+```bash
+docker compose up
+```
+
 ---
 **Постановка задачи:** требуется распознавать и определять виды дефектов сварочных швов.
 
