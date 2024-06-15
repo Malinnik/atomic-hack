@@ -4,9 +4,9 @@
 **Инструкции по развертыванию:**
 - [README Frontend](https://github.com/Malinnik/atomic-hack/blob/main/frontend/README.md)
 - [README Backend](https://github.com/Malinnik/atomic-hack/blob/main/backend/README.md)
-- [README ?]()
+- [README ML](https://github.com/Malinnik/atomic-hack/blob/main/ml/README.md)
 ---
-**Постановка задачи:** требуется распознавать и определять виды дефектов сварочных швов. 
+**Постановка задачи:** требуется распознавать и определять виды дефектов сварочных швов.
 
 Пример распознавания сварочного шва:
 ![Пример распознавания сварочного шва](https://github.com/Malinnik/atomic-hack/blob/main/docs/1%20(4).jpg)
