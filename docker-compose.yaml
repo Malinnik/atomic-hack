@@ -1,0 +1,11 @@
+services:
+  front:
+    image: atomic-front:latest
+    ports:
+      - 3000:3000
+
+  back:
+    image: atomic-back:latest
+    ports:
+      - 8080:8080
+    
