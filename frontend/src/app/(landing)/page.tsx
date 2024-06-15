@@ -1,11 +1,9 @@
 'use client';
-import { read } from "fs";
 import { ChangeEvent, useState } from "react";
-import Image from 'next/image'
 
 export default function Home() {
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Blob | null>(null);
 
   const imageChange = (e: ChangeEvent<HTMLInputElement>) => {
 
