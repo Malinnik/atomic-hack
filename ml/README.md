@@ -9,7 +9,7 @@
 ```bash
 python ml/inference.py --model_path=yolo8_100_best.pt --input_path=folder_with_images
 ```
-где *folder_with_images* - папка с jpg картинками.
+где *folder_with_images* - папка с jpg картинками. Скрипт *inference.py* сгенерирует файл *submission.csv*.
 
 ## Обучение
 
