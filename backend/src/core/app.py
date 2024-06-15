@@ -1,9 +1,7 @@
 import os
 import asyncio
 from aiohttp import web
-from sqlalchemy.ext.asyncio import create_async_engine
 from ultralytics import YOLO
-from core.orm import Base
 from aiohttp_pydantic import oas
 
 from core.routes import setup_routes
