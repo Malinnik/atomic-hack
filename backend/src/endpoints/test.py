@@ -5,7 +5,7 @@ from aiohttp import web
 from aiohttp_pydantic import PydanticView
 import cv2
 
-from common.neuro import process_image
+from common.neuro import predict_image, process_image
 
 
 PATH = 'output/'
@@ -53,12 +53,14 @@ class GetFile2(PydanticView):
 
         # File Processing
         img = cv2.imread(PATH+filename)
-        logging.debug(f"{img=}")
+        # logging.debug(f"{img=}")
         
 
-        img = await process_image(img, '1.txt')
+        # img = await process_image(img, '1.txt')
+
+        img = await predict_image(img, conf=0.25)
         
-        cv2.imwrite(PATH+filename,  img)
+        cv2.imwrite(PATH+filename, img)
 
         return web.FileResponse(PATH+filename)
 
