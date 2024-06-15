@@ -8,8 +8,8 @@ export default function Home() {
   const [showConf, setShowConf]  = useState<boolean>(false);
   
   const [sended, setSended] = useState<boolean>(false);
+  
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
-  const [logs, setLogs] = useState<string[]>([]);
 
 
   const imageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,19 +70,6 @@ export default function Home() {
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
-    if (!showSidebar) {
-      fetchLogs();
-    }
-  };
-
-  const fetchLogs = async () => {
-    try {
-      const response = await fetch('/api/v2/logs');
-      const data = await response.json();
-      setLogs(data.logs);
-    } catch (error) {
-      console.error("Failed to fetch logs:", error);
-    }
   };
 
   return (
@@ -126,21 +113,20 @@ export default function Home() {
           <label htmlFor="">Вероятность</label><input type="number" min="1" max="100"/>
         </div>
         
-        <button onClick={toggleSidebar} className="fixed top-4 left-4 bg-blue-500 text-white py-2 px-4 rounded">Toggle Logs</button>
+        <button onClick={toggleSidebar} className="fixed top-4 left-4 inline-block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Меню</button>
 
-      <div className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white transform ${showSidebar ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300`}>
-        <div className="p-4">
-          <h2 className="text-xl font-bold mb-4">Server Logs</h2>
-          <button onClick={toggleSidebar} className="absolute top-4 right-4 text-white">Close</button>
-          <div className="mt-4 overflow-y-auto">
-            {logs.map((log, index) => (
-              <div key={index} className="mb-2">
-                {log}
-              </div>
-            ))}
+        <div className={`fixed top-0 left-0 h-full sm:w-96 w-screen bg-gray-800 text-white transform ${showSidebar ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300`}>
+          <div className="p-4">
+            <h2 className="text-xl font-bold mb-4"></h2>
+            <button onClick={toggleSidebar} className="absolute top-4 right-4 inline-block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Закрыть</button>
+            <div className="mt-4 overflow-y-auto">
+                <div>
+                  Легенда:
+
+                </div>
+            </div>
           </div>
         </div>
-      </div>
 
       </div>
     </div>
