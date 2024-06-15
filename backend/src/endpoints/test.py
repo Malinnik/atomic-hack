@@ -1,8 +1,14 @@
 import logging
+import os
 
 from aiohttp import web
 from aiohttp_pydantic import PydanticView
+import cv2
 
+from common.neuro import predict_image, process_image
+
+
+PATH = 'output/'
 
 class GetFile(PydanticView):
 
@@ -21,20 +27,22 @@ class GetFile(PydanticView):
             file.write(content)
 
         raise web.HTTPFound("/")
-    
+
+
 class GetFile2(PydanticView):
 
     async def post(self):
         reader = await self.request.multipart()
 
-        # reader.next() will `yield` the fields of your form
 
+        # Get File Content
         field = await reader.next()
         logging.debug(f"{field=}")
         filename = field.filename
-        # You cannot rely on Content-Length if transfer is chunked.
+
+        # Save File
         size = 0
-        with open(filename, 'wb') as f:
+        with open(PATH+filename, 'wb') as f:
             while True:
                 chunk = await field.read_chunk()  # 8192 bytes by default.
                 if not chunk:
@@ -42,6 +50,23 @@ class GetFile2(PydanticView):
                 size += len(chunk)
                 f.write(chunk)
 
-        raise web.HTTPFound("/login")
+
+        # File Processing
+        img = cv2.imread(PATH+filename)
+        # logging.debug(f"{img=}")
+        
+
+        # img = await process_image(img, '1.txt')
+
+        img = await predict_image(img, conf=0.25)
+        
+        cv2.imwrite(PATH+filename, img)
+
+        return web.FileResponse(PATH+filename)
+
+        # response = web.StreamResponse()
+        # response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        raise web.HTTPFound("/")
         return web.Response(text='{} sized of {} successfully stored'
                              ''.format(filename, size))
