@@ -3,7 +3,8 @@ import { ChangeEvent, useState } from "react";
 
 export default function Home() {
 
-  const [selectedImage, setSelectedImage] = useState<Blob | null>(null);
+  const [selectedImage, setSelectedImage] = useState<Blob>(new Blob());
+  const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
   const [useLabel, setUseLabel] = useState<boolean>(false);
   const [showConf, setShowConf]  = useState<boolean>(false);
   
@@ -15,11 +16,13 @@ export default function Home() {
 
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
+      setIsImageSelected(true);
     }
   };
 
   const removeSelectedImage = () => {
-    setSelectedImage(null);
+    setSelectedImage(new Blob());
+    setIsImageSelected(false);
 
     const element = document.getElementById('get_image_input');
     
@@ -41,7 +44,7 @@ export default function Home() {
 
   const handleSubmit = () => {
 
-    if (!selectedImage)
+    if (!isImageSelected)
       return
 
     setSended(true);
@@ -73,7 +76,7 @@ export default function Home() {
       <div className="w-96 rounded overflow-hidden shadow-lg">
         
         <div>
-          {!selectedImage &&
+          {!isImageSelected &&
             <input className="block w-full text-sm text-gray-500
             file:me-4 file:py-2 file:px-4
             file:rounded-lg
@@ -84,7 +87,7 @@ export default function Home() {
             file:text-blue-700 file:bg-white" 
             id="get_image_input" type="file" name="image" accept="image/*" onChange={imageChange} />
           }
-          {selectedImage && (
+          {isImageSelected && (
             <>
               <img className="object-cover" src={URL.createObjectURL(selectedImage)} alt="Thumb"  />
             </>
@@ -96,8 +99,8 @@ export default function Home() {
           { !sended && <button onClick={handleSubmit} className="inline-block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Проверить</button>}
 
 
-          { sended && <button disabled onClick={removeSelectedImage} className="inline-block bg-transparent bg-slate-400  text-white font-semibold  py-2 px-4 border   rounded">Сбросить</button>}
-          { sended && <button disabled onClick={handleSubmit} className="inline-block bg-transparent bg-slate-400  text-white font-semibold  py-2 px-4 border   rounded">Ожидайте</button>}
+          { sended && <button disabled onClick={removeSelectedImage} className="inline-block bg-slate-400  text-white font-semibold  py-2 px-4 border   rounded">Сбросить</button>}
+          { sended && <button disabled onClick={handleSubmit} className="inline-block bg-slate-400  text-white font-semibold  py-2 px-4 border   rounded">Ожидайте</button>}
         </div>
         
         <div className="">
