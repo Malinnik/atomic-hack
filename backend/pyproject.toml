@@ -17,6 +17,7 @@ asyncpg = "^0.29.0"
 sqlalchemy-utils = "^0.41.2"
 passlib = "^1.7.4"
 pyjwt = "^2.8.0"
+opencv-python = "^4.10.0.82"
 
 [tool.poetry.group.dev.dependencies]
 aiohttp-devtools = "^1.1.2"
