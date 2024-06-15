@@ -2,6 +2,7 @@ import os
 import asyncio
 from aiohttp import web
 from sqlalchemy.ext.asyncio import create_async_engine
+from ultralytics import YOLO
 from core.orm import Base
 from aiohttp_pydantic import oas
 
@@ -18,7 +19,8 @@ async def create_app():
     #     pool_pre_ping=True,
     #     future=True,
     # )
-    # app["tasks"] = {}
+
+    app['model'] = YOLO('best.pt')
     setup_routes(app)
 
     # async with app["db_engine"].begin() as session:
@@ -26,6 +28,6 @@ async def create_app():
     #     await session.run_sync(Base.metadata.drop_all)
     #     await session.run_sync(Base.metadata.create_all)
 
-    oas.setup(app, title_spec="Service Name", version_spec="0.1.0")
+    oas.setup(app, title_spec="Service Name", version_spec="0.1.0", url_prefix='/api/oas')
 
     return app
