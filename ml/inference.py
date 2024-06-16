@@ -5,7 +5,7 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 
-from ultralytics import YOLO
+from ultralytics import YOLOv10, YOLO
 
 parser = ArgumentParser()
 parser.add_argument('--input_path', type=str, required=True, help='Путь к папке с картинками')
@@ -13,7 +13,11 @@ parser.add_argument('--model_path', type=str, required=True, help='Путь к �
 parser.add_argument('--output_path', type=str, required=False, default='submission.csv', help='Путь к csv на выход')
 args = parser.parse_args()
 
-model = YOLO(args.model_path)
+if args.model_path.find('yolo10') != -1:
+    model = YOLOv10(args.model_path)
+    print('Selecting yolo10...')
+else:
+    model = YOLO(args.model_path)
 
 def process_directory(model, directory, submission, conf):
     lst = []
