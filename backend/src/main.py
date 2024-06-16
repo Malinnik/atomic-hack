@@ -9,7 +9,7 @@ load_dotenv()
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, filename='backend.log', filemode='w')
+    logging.basicConfig(level=logging.DEBUG)
     logging.info("Starting server...")
     app = create_app()
 
