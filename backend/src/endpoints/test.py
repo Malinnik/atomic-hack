@@ -71,7 +71,7 @@ class GetFile2(PydanticView):
         # logging.debug(f"{img=}")
         
 
-        img, classes_amount = await predict_image(img, conf=0.25, use_label=use_label, show_conf=show_conf, model=app['model'])
+        img, classes_amount = await predict_image(img, conf=0.05, use_label=use_label, show_conf=show_conf, model=app['model'])
         
         cv2.imwrite(PATH+filename, img)
 
