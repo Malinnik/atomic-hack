@@ -11,19 +11,19 @@
 ```yaml
 services:
   front:
-    image: atomic-front:latest
+    image: horaziy/atomic-hack-frontend:latest
     ports:
       - 3000:3000
 
   back:
-    image: atomic-back:latest
+    image: horaziy/atomic-hack-backend:latest
     ports:
       - 8080:8080
     
 ```
 Запустите, используя Docker Compose
 ```bash
-docker compose up
+docker compose up -d
 ```
 
 ---
