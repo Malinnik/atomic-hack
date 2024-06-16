@@ -1,16 +1,18 @@
 services:
   front:
     image: horaziy/atomic-hack-frontend:latest
+    # Порт не обязателен для доступа. Проходит через nginx
     ports:
-      - 3000:3000
+      - :3000
     networks:
     - atomic
     restart: unless-stopped
 
   back:
     image: horaziy/atomic-hack-backend:latest
+    # Порт не обязателен для доступа. Проходит через nginx
     ports:
-      - 8080:8080
+      - :8080
     networks:
       - atomic
     restart: unless-stopped
