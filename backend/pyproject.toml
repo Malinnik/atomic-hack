@@ -12,8 +12,8 @@ pydantic = {extras = ["email"], version = "^2.7.1"}
 aiohttp-pydantic = "^2.0.0"
 python-dotenv = "^1.0.1"
 pyjwt = "^2.8.0"
-opencv-python = "^4.10.0.82"
 ultralytics = "^8.2.32"
+opencv-python-headless = "^4.10.0.82"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.4"

@@ -71,11 +71,11 @@ class GetFile2(PydanticView):
         # logging.debug(f"{img=}")
         
 
-        img = await predict_image(img, conf=0.25, use_label=use_label, show_conf=show_conf, model=app['model'])
+        img, classes_amount = await predict_image(img, conf=0.25, use_label=use_label, show_conf=show_conf, model=app['model'])
         
         cv2.imwrite(PATH+filename, img)
 
-        return web.FileResponse(PATH+filename)
+        return web.FileResponse(PATH+filename, reason=' '.join(classes_amount))
 
         # response = web.StreamResponse()
         # response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
