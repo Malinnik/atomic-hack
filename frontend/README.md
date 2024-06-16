@@ -7,9 +7,6 @@
 
 `docker run horaziy/atomic-hack-frontend -d -p 3000:3000`
 
-First, run the development server:
-
-
 ## Сборка приложения
 Загрузите приложение
 ```bash
