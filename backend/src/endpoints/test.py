@@ -75,7 +75,7 @@ class GetFile2(PydanticView):
         
         cv2.imwrite(PATH+filename, img)
 
-        return web.FileResponse(PATH+filename, reason=classes_amount)
+        return web.FileResponse(PATH+filename, reason=' '.join(classes_amount))
 
         # response = web.StreamResponse()
         # response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
