@@ -58,7 +58,17 @@ async def predict_image(img: MatLike, model: YOLO = YOLO('best.pt'), conf: float
 
     confs = result[0].boxes.data[:, -2]
 
+    class_amount = {
+        "adj": 0,
+        "int": 0,
+        "geo": 0,
+        "pro": 0,
+        "non": 0
+    }
+
     for i in range(len(classes)):
+        class_amount[class_to_text[classes[i]]]+= 1
         img = await bbox(img, classes[i], box=result[0].boxes[i], conf=confs[i], use_label=use_label, show_conf=show_conf)
 
-    return img
+
+    return img, class_amount
