@@ -10,26 +10,7 @@ from common.neuro import predict_image
 
 PATH = 'output/'
 
-class GetFile(PydanticView):
-
-    async def post(self):
-        data = await self.request.post()
-        logging.info(f"{data=}")
-
-        image = data['image']
-        filename= image.filename
-
-        image_file = data['image'].file
-
-        content = image_file.read()
-
-        with open(filename, 'wb') as file:
-            file.write(content)
-
-        raise web.HTTPFound("/")
-
-
-class GetFile2(PydanticView):
+class Detection(PydanticView):
 
     async def post(self):
         app = self.request.app
