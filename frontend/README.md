@@ -5,7 +5,7 @@
 
 ## Быстрый старт
 
-`docker run -d -p 3000:3000 horaziy/atomic-hack-frontend`
+`docker run -d -p 3000:3000 horaziy/grozny-hack-backend`
 
 ## Сборка приложения
 Загрузите приложение
